@@ -3,8 +3,7 @@ MAINTAINER Michal Raczka me@michaloo.net
 
 
 RUN apt-get update && \
-    apt-get install -y curl supervisor && \
-    curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh | sh
+    apt-get install -y curl supervisor
 
 RUN cd /usr/local/bin && \
     curl -L https://github.com/jwilder/docker-gen/releases/download/0.3.2/docker-gen-linux-amd64-0.3.2.tar.gz | \
