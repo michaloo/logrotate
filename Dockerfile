@@ -3,7 +3,8 @@ MAINTAINER Michal Raczka me@michaloo.net
 
 
 RUN apt-get update && \
-    apt-get install -y curl supervisor
+    apt-get install -y curl supervisor python-pip && \
+    pip install supervisor-stdout
 
 RUN cd /usr/local/bin && \
     curl -L https://github.com/jwilder/docker-gen/releases/download/0.3.2/docker-gen-linux-amd64-0.3.2.tar.gz | \
@@ -14,6 +15,10 @@ WORKDIR /app
 ADD . /app
 
 RUN cp /app/app.conf /etc/supervisor/conf.d/app.conf
+
+RUN cd /etc/cron.daily/ && ls . | grep -v logrotate | xargs rm && \
+    cd /etc/cron.weekly/ && ls . | grep -v logrotate | xargs rm && \
+    rm /etc/logrotate.d/*
 
 #EXPOSE 80
 

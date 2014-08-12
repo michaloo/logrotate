@@ -1,0 +1,10 @@
+containers:
+  - name: logrotate
+    image: michaloo/logrotate
+    run:
+      volume:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+        - "/var/lib/docker:/var/lib/docker"
+      interactive: true
+      tty: true
+      cmd: /bin/bash
