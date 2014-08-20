@@ -18,7 +18,9 @@ RUN cp /app/app.conf /etc/supervisor/conf.d/app.conf
 
 RUN cd /etc/cron.daily/ && ls . | grep -v logrotate | xargs rm && \
     cd /etc/cron.weekly/ && ls . | grep -v logrotate | xargs rm && \
-    rm /etc/logrotate.d/*
+    rm /etc/logrotate.d/* && \
+    sed -i -e 's/^\/usr\/sbin\/logrotate.* /\/usr\/sbin\/logrotate \-v \/etc\/logrotate.conf/' /etc/cron.daily/logrotate && \
+    echo "0 *   * * * root /etc/cron.daily/logrotate" >> /etc/crontab
 
 #EXPOSE 80
 
