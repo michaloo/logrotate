@@ -21,4 +21,3 @@ containers:
         - "/var/run/docker.sock:/var/run/docker.sock"
         - "/var/lib/docker:/var/lib/docker"
       detach: true
-      tty: true
