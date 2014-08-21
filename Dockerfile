@@ -37,3 +37,4 @@ ENV DOCKER_DIR /var/lib/docker/
 ENV GOCRON_SCHEDULER 0 0 * * * *
 
 ENTRYPOINT ["/usr/bin/supervisord"]
+CMD []
