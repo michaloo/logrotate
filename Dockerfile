@@ -27,4 +27,4 @@ RUN cd /etc/cron.daily/ && ls . | grep -v logrotate | xargs rm && \
 ENV DOCKER_HOST unix:///var/run/docker.sock
 ENV DOCKER_DIR /var/lib/docker/
 
-CMD ["/usr/bin/supervisord"]
+ENTRYPOINT ["/usr/bin/supervisord"]
