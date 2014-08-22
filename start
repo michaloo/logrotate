@@ -1,14 +1,9 @@
 #!/bin/bash
 
-# using sed to strip color codes from forego output
-#exec /usr/local/bin/forego start | sed -r "s:\x1B\[[0-9;]*[mK]::g"
+sed -e 's/{{LOGROTATE_MODE}}/'"$LOGROTATE_MODE"'/' \
+    -e 's/{{LOGROTATE_ROTATE}}/'"$LOGROTATE_ROTATE"'/' \
+    -e 's/{{LOGROTATE_SIZE}}/'"$LOGROTATE_SIZE"'/' \
+    /app/logrotate.tmpl > /root/logrotate.tmpl
 
-set -m
+exec /usr/local/bin/go-cron "$GOCRON_SCHEDULER" /etc/cron.daily/logrotate
 
-trap 'kill $(jobs -p)' EXIT
-trap "exit" CHLD
-
-/usr/local/bin/docker-gen -watch /app/logrotate.tmpl /etc/logrotate.d/docker &
-/usr/local/bin/go-cron "$GOCRON_SCHEDULER" /etc/cron.daily/logrotate &
-
-wait

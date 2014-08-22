@@ -22,14 +22,21 @@ RUN curl -sL https://github.com/michaloo/go-cron/releases/download/v0.0.2/go-cro
 ADD . /app
 WORKDIR /app
 
-# clear logrotate ubuntu installation and enable debug information
+# clear logrotate ubuntu installation and modify logrotate script
+# add docker-gen execution and enable debug mode
 RUN rm /etc/logrotate.d/* && \
-    sed -i -e 's/^\/usr\/sbin\/logrotate.*/\/usr\/sbin\/logrotate \-v \/etc\/logrotate.conf/' /etc/cron.daily/logrotate
+    sed -i \
+    -e 's/^\/usr\/sbin\/logrotate.*/\/usr\/sbin\/logrotate \-v \/etc\/logrotate.conf/' \
+    -e '/\#\!\/bin\/sh/a /usr/local/bin/docker-gen /root/logrotate.tmpl /etc/logrotate.d/docker' \
+    /etc/cron.daily/logrotate
 
 # set default configuration
 ENV DOCKER_HOST unix:///var/run/docker.sock
 ENV DOCKER_DIR /var/lib/docker/
 ENV GOCRON_SCHEDULER 0 0 * * * *
+ENV LOGROTATE_MODE daily
+ENV LOGROTATE_ROTATE 3
+ENV LOGROTATE_SIZE 512M
 
 ENTRYPOINT [ "/bin/bash" ]
 CMD [ "/app/start" ]

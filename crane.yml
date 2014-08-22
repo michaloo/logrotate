@@ -21,3 +21,5 @@ containers:
         - "/var/run/docker.sock:/var/run/docker.sock"
         - "/var/lib/docker:/var/lib/docker"
       detach: true
+      env:
+        - "GOCRON_SCHEDULER=0 * * * * *"

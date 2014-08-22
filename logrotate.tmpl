@@ -1,14 +1,12 @@
 {{ range $index, $value := $ }}
-/var/lib/docker/containers/{{ $value.ID }}/{{ $value.ID }}-json.log
+/var/lib/docker/containers/{{ $value.ID }}/{{ $value.ID }}-json.log{{ end }}
 {
-    daily
+    {{LOGROTATE_MODE}}
     missingok
-    rotate 3
-    size 512M
+    rotate {{LOGROTATE_ROTATE}}
+    size {{LOGROTATE_SIZE}}
     compress
     notifempty
-    # create 644 root root
-    copy
     copytruncate
 }
-{{ end }}
+
