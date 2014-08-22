@@ -5,6 +5,7 @@
 
 set -m
 
+trap 'kill $(jobs -p)' EXIT
 trap "exit" CHLD
 
 /usr/local/bin/docker-gen -watch /app/logrotate.tmpl /etc/logrotate.d/docker &
