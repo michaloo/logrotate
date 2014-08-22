@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# using sed to strip color codes from forego output
+#exec /usr/local/bin/forego start | sed -r "s:\x1B\[[0-9;]*[mK]::g"
+
+set -m
+
+trap "exit" CHLD
+
+/usr/local/bin/docker-gen -watch /app/logrotate.tmpl /etc/logrotate.d/docker &
+/usr/local/bin/go-cron "$GOCRON_SCHEDULER" /etc/cron.daily/logrotate &
+
+wait
