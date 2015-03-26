@@ -21,8 +21,8 @@ RUN rm /etc/logrotate.d/* \
     && sed -i \
     -e 's/^\/usr\/sbin\/logrotate.*/\/usr\/sbin\/logrotate \-v \/etc\/logrotate.conf/' \
     /etc/cron.daily/logrotate
-    #&& apt-get clean \
-    #&& rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 # set default configuration
 ENV DOCKER_DIR /var/lib/docker/
 ENV GOCRON_SCHEDULER 0 0 * * * *
