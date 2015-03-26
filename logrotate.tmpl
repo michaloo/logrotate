@@ -1,10 +1,8 @@
-{{ range $index, $value := $ }}
-/var/lib/docker/containers/{{ $value.ID }}/{{ $value.ID }}-json.log{{ end }}
+/var/lib/docker/containers/*/*.log
 {
     {{LOGROTATE_MODE}}
     missingok
     rotate {{LOGROTATE_ROTATE}}
-    size {{LOGROTATE_SIZE}}
     compress
     notifempty
     copytruncate
