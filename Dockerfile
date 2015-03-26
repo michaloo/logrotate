@@ -16,11 +16,9 @@ WORKDIR /app
 # clear logrotate ubuntu installation and modify logrotate script
 # add the template and enable debug mode
 RUN rm /etc/logrotate.d/* \
-    && cp /app/logrotate.tmpl /etc/logrotate.d/docker \
-    && chmod 0644 /etc/logrotate.d/docker \
     && sed -i \
     -e 's/^\/usr\/sbin\/logrotate.*/\/usr\/sbin\/logrotate \-v \/etc\/logrotate.conf/' \
-    /etc/cron.daily/logrotate
+    /etc/cron.daily/logrotate \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 # set default configuration
