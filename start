@@ -2,8 +2,7 @@
 
 sed -e 's/{{LOGROTATE_MODE}}/'"$LOGROTATE_MODE"'/' \
     -e 's/{{LOGROTATE_ROTATE}}/'"$LOGROTATE_ROTATE"'/' \
-    -e 's/{{LOGROTATE_SIZE}}/'"$LOGROTATE_SIZE"'/' \
-    /app/logrotate.tmpl > /root/logrotate.tmpl
-
+    /app/logrotate.tmpl > /etc/logrotate.d/docker
+chmod 0644 /etc/logrotate.d/docker
 exec /usr/local/bin/go-cron "$GOCRON_SCHEDULER" /etc/cron.daily/logrotate
 
