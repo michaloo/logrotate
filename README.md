@@ -1,10 +1,12 @@
 # Docker logrotate
 
-Docker image with golang utilities:
+[![](https://imagelayers.io/badge/michaloo/logrotate:latest.svg)](https://imagelayers.io/?images=michaloo/logrotate:latest 'Get your own badge on imagelayers.io')
+
+Docker image with golang cron replacement:
 
 - [go-cron](https://github.com/michaloo/go-cron)
 
-which rotate logs from all docker containers.
+which rotate logs from all docker containers found in provided docker installation.
 
 By default it runs every hour and rotate files daily.
 
